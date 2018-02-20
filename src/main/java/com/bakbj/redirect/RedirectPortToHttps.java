@@ -1,22 +1,20 @@
-package com.bakbj.redirectPort;
+package com.bakbj.redirect;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties
-public class redirectPortConfiguration {
+public class RedirectPortToHttps {
 
     @Bean
-    public EmbeddedServletContainerFactory servletContainerFactory() {
+    public EmbeddedServletContainerFactory servletContainer() {
         TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
             @Override
             protected void postProcessContext(Context context) {
@@ -28,22 +26,28 @@ public class redirectPortConfiguration {
                 context.addConstraint(securityConstraint);
             }
         };
-        tomcat.addAdditionalTomcatConnectors(createHttpConnection());
+        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
         return tomcat;
     }
 
-    @Value("${server.port.http}")
-    private int serverPortHttp;
+//    @Bean
+//    public EmbeddedServletContainerCustomizer containerCustomizer() {
+//        return container -> {
+//            if (container instanceof TomcatEmbeddedServletContainerFactory) {
+//                TomcatEmbeddedServletContainerFactory containerFactory = (TomcatEmbeddedServletContainerFactory) container;
+//                Connector connector = new Connector(TomcatEmbeddedServletContainerFactory.DEFAULT_PROTOCOL);
+//                int httpPort = 8080;
+//                connector.setPort(httpPort);
+//                containerFactory.addAdditionalTomcatConnectors(connector);
+//            }};
+//    }
 
-    @Value("${server.port}")
-    private int serverPortHttps;
-
-    private Connector createHttpConnection() {
+    private Connector initiateHttpConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
+        connector.setPort(8080);
         connector.setSecure(false);
-        connector.setPort(serverPortHttp);
-        connector.setRedirectPort(serverPortHttps);
+        connector.setRedirectPort(8443);
         return connector;
     }
 }
