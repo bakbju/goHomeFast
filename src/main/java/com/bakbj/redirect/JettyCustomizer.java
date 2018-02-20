@@ -19,7 +19,7 @@ public class JettyCustomizer implements EmbeddedServletContainerCustomizer {
 
         containerFactory.addServerCustomizers(server -> {
             HttpConfiguration http = new HttpConfiguration();
-            http.setSecurePort(443);
+            http.setSecurePort(8443);
             http.setSecureScheme("https");
 
             ServerConnector connector = new ServerConnector(server);
