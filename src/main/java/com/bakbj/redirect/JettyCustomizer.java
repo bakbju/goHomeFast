@@ -24,7 +24,7 @@ public class JettyCustomizer implements EmbeddedServletContainerCustomizer {
 
             ServerConnector connector = new ServerConnector(server);
             connector.addConnectionFactory(new HttpConnectionFactory(http));
-            connector.setPort(80);
+            connector.setPort(8080);
 
             server.addConnector(connector);
         });
