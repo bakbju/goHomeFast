@@ -1,6 +1,7 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 a { text-decoration: none; }
 iframe { display: block; }
-html, body {font-family: 'helvetica', '나눔고딕', 'Nanum Gothic', '돋움', Dotum, sans-serif}
+html, body {font-family: 'Nanum Gothic', sans-serif;}
 body { min-width: 640px; height: 100%; visibility: hidden;  background-color: #d8d1cf;overflow-x: hidden;}
 a:link, a:hover, a:visited { color: #64625f; }
 

@@ -19,5 +19,4 @@ public class GoHomeFastApplication {
 	public static void  main(String[] args) {
 		SpringApplication.run(GoHomeFastApplication.class, args);
 	}
-
 }
