@@ -10,9 +10,13 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+
+war {
+	baseName = "goHomeFast"
+}
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
@@ -22,25 +26,14 @@ repositories {
 	mavenCentral()
 }
 
-
-jar {
-	manifest {
-		attributes 'Main-Class': 'GoHomeFastApplication'
-	}
-}
-
-configurations {
-	complie.exclude module: "spring-boot-starter-tomcat"
-}
-
 dependencies {
+	providedRuntime('org.springframework.boot:spring-boot-starter-jetty')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-jetty')
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
