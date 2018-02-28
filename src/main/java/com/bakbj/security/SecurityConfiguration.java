@@ -61,7 +61,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .and()
                 .rememberMe()
                     .rememberMeCookieName(REMEMBER_ME_KEY)
-                    .tokenRepository(persistentTokenRepository());
+                    .tokenRepository(persistentTokenRepository())
+                    .and()
+                .portMapper()
+                    .http(8080).mapsTo(8443);
     }
 
     @Bean
