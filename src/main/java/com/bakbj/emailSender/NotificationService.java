@@ -21,7 +21,7 @@ public class NotificationService {
         mail.setTo(email);
         mail.setFrom("bakb0j00@gmail.com");
         mail.setSubject("야근하지말자에 가입해주셔서 감사합니다.");
-        mail.setText("아래의 링크를 클릭하시면 회원가입이 완료됩니다.\nhttp://www.bakb0.xyz/register/changeRole/" + id);
+        mail.setText("아래의 링크를 클릭하시면 회원가입이 완료됩니다.\nhttps://www.bakb0.xyz/register/changeRole/" + id);
         javaMailSender.send(mail);
     }
 }
