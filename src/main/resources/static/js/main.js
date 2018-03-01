@@ -26,28 +26,6 @@ $(function() {
         });
     }
 
-    function gnbDepth2Position(This){
-        var $navStep1 = $('.navStep1');
-        var pos = This.position();
-        var getDepth2Wid = function(This){
-            var wid=0;
-            This.find('.navStep2>li').each(function(){
-                wid += $(this).width();
-            });
-            return wid;
-        };
-        var depth2Wid = getDepth2Wid(This);
-        if(cssReplace.status!='Tiny'){
-			try {
-            if(pos.left+depth2Wid < $navStep1.width()){
-               This.find('.navStep2').css('marginLeft', pos.left );
-            }
-            else {
-                This.find('.navStep2').css('marginLeft', pos.left+This.width()-depth2Wid-10);
-            }
-			} catch(e){}
-        }
-    }
     $gnbLi.bind('mouseenter', function() {
         if(cssReplace.status!='Tiny'&&cssReplace.status!='Medium'){
             $(this).addClass('on').siblings().removeClass('on').children('div').hide();
@@ -67,20 +45,6 @@ $(function() {
         e.stopPropagation();
         if(cssReplace.status!='Tiny'&&cssReplace.status!='Medium'){
             if($(this).parents('li.firstMenu').length>0 && $(this).find('ul').length>0){
-                return false;
-            }
-        }
-        else {
-            if($(this).find('.navStep2Wrap').length>0) {
-                if($(this).find('div:eq(0)').is(":hidden")){
-                    $(this).addClass('on').siblings().removeClass('on').children('div').slideUp('500');
-                    $(this).siblings().find('li').removeClass('on');
-                    $(this).find('.navStep2Wrap').slideDown('500');
-                }
-                else {
-                    $(this).removeClass('on').children('div').slideUp('500');
-                }
-                $gnbLi.eq(activePage).parents('li').addClass('on');
                 return false;
             }
         }
@@ -227,24 +191,6 @@ $(document).ready(function(){
 			}
 			$($wrapper).find(".links_prev").click(goPrev);
 
-			// �ڵ�����
-			/*var autoPlay;
-			function autoChange(){
-				autoPlay = setInterval(goNext, timer);
-			}
-			autoChange();*/
-
-			/* ���� ������ ����
-			$($wrapper).hover(
-				function(){
-					clearInterval(autoPlay);
-				},
-				function(){
-					autoChange();
-				}
-			);*/
-
-			// ��Ʈ�ѷ�
 			$($wrapper).find(".links_stop").click(function(){
 				clearInterval(autoPlay);
 			});
@@ -253,11 +199,9 @@ $(document).ready(function(){
 			});
 		}
 
-		// ȣ���Լ�(���̵�, ������)
 		if($("#recipeGallery").length>0){
 			loopGallery("recipeGallery", 4000);
 		}
-		// [END] slide loop
 
 		$("#recipeGallery .tab li a").on("click", function(){
 			var $index = $(this).parent().index();
